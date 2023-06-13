@@ -10,6 +10,7 @@ import EditEventPage from './pages/EditEventPage';
 import ErrorPage from './pages/ErrorPage';
 
 import { eventsLoader } from './pages/EventsPage';
+import { eventDetailLoader } from './pages/EventDetailPage';
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,7 @@ const router = createBrowserRouter([
           {
             path: ':id',
             element: <EventDetailPage />,
+            loader: eventDetailLoader,
           },
           {
             path: 'new',
@@ -51,6 +53,5 @@ const router = createBrowserRouter([
 const App = () => {
   return <RouterProvider router={router} />;
 };
-
 
 export default App;
