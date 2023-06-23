@@ -11,7 +11,7 @@ const RootLayout = () => {
     <div className={classes.content}>
       <MainNavigation />
       {navigation.state === 'loading' && <p>Loading...</p>}
-      {navigation.state === 'idle' && <Outlet />}
+      {navigation.state !== 'loading' && <Outlet />}
     </div>
   );
 };
