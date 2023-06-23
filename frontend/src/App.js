@@ -4,15 +4,18 @@ import EventsLayout from './layouts/EventsLayout';
 
 import HomePage from './pages/HomePage';
 import EventsPage from './pages/EventsPage';
-import EventDetailPage from './pages/EventDetailPage';
+import EventDetailPage, {
+  eventDetailLoader,
+  action as deleteEventAction,
+} from './pages/EventDetailPage';
 import NewEventPage, {
   action as newEventPageAction,
 } from './pages/NewEventPage';
+
 import EditEventPage from './pages/EditEventPage';
 import ErrorPage from './pages/ErrorPage';
 
 import { eventsLoader } from './pages/EventsPage';
-import { eventDetailLoader } from './pages/EventDetailPage';
 
 const router = createBrowserRouter([
   {
@@ -40,6 +43,7 @@ const router = createBrowserRouter([
             children: [
               {
                 index: true,
+                action: deleteEventAction,
                 element: <EventDetailPage />,
               },
               {
