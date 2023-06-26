@@ -28,6 +28,8 @@ export const action = async ({ params, request }) => {
     }
   });
   
+  if(res.status === 422) return res;
+  
   if (!res.ok) throw json({message: 'Could not save event'}, {status: 500});
 
   return redirect('/events');
