@@ -1,22 +1,18 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import RootLayout from './layouts/RootLayout';
-import EventsLayout from './layouts/EventsLayout';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-import HomePage from './pages/HomePage';
-import EventsPage from './pages/EventsPage';
+import EditEventPage from './pages/EditEvent';
+import ErrorPage from './pages/Error';
 import EventDetailPage, {
-  eventDetailLoader,
+  loader as eventDetailLoader,
   action as deleteEventAction,
-} from './pages/EventDetailPage';
-import NewEventPage from './pages/NewEventPage';
-import{
-  action as eventAction,
-} from './components/EventForm';
-
-import EditEventPage from './pages/EditEventPage';
-import ErrorPage from './pages/ErrorPage';
-
-import { eventsLoader } from './pages/EventsPage';
+} from './pages/EventDetail';
+import EventsPage, { loader as eventsLoader } from './pages/Events';
+import EventsRootLayout from './pages/EventsRoot';
+import HomePage from './pages/Home';
+import NewEventPage from './pages/NewEvent';
+import RootLayout from './pages/Root';
+import { action as manipulateEventAction } from './components/EventForm';
+import NewsletterPage, { action as newsletterAction } from './pages/Newsletter';
 
 const router = createBrowserRouter([
   {
@@ -24,13 +20,10 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     errorElement: <ErrorPage />,
     children: [
-      {
-        index: true,
-        element: <HomePage />,
-      },
+      { index: true, element: <HomePage /> },
       {
         path: 'events',
-        element: <EventsLayout />,
+        element: <EventsRootLayout />,
         children: [
           {
             index: true,
@@ -38,35 +31,40 @@ const router = createBrowserRouter([
             loader: eventsLoader,
           },
           {
-            id: 'eventDetail',
-            path: ':id',
+            path: ':eventId',
+            id: 'event-detail',
             loader: eventDetailLoader,
             children: [
               {
                 index: true,
-                action: deleteEventAction,
                 element: <EventDetailPage />,
+                action: deleteEventAction,
               },
               {
                 path: 'edit',
                 element: <EditEventPage />,
-                action: eventAction,
+                action: manipulateEventAction,
               },
             ],
           },
           {
             path: 'new',
             element: <NewEventPage />,
-            action: eventAction,
+            action: manipulateEventAction,
           },
         ],
+      },
+      {
+        path: 'newsletter',
+        element: <NewsletterPage />,
+        action: newsletterAction,
       },
     ],
   },
 ]);
 
-const App = () => {
+function App() {
   return <RouterProvider router={router} />;
-};
+}
 
 export default App;
