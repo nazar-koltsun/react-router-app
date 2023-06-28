@@ -4,9 +4,9 @@ import EventsList from '../components/EventsList';
 
 const EventsPage = () => {
   const data = useLoaderData();
-
+  
   if (data.isError) return <p>{data.message}</p>;
-
+  
   const { events: fetchedEvents } = data;
 
   return <EventsList events={fetchedEvents} />;
